@@ -8,7 +8,7 @@ export const registerUser = (userData, history) => (dispatch) => {
   console.log(userData);
   axios
     .post("/users/register", userData)
-    .then((res) => history.push("/"))
+    .then((res) => history.push("/auth"))
     .catch((err) =>
       dispatch({
         type: GET_ERRORS,
