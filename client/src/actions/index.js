@@ -4,11 +4,11 @@ import jwt_decode from "jwt-decode";
 
 import { GET_ERRORS, SET_CURRENT_USER } from "./types";
 
-export const registerUser = (userData, history) => (dispatch) => {
+export const registerUser = (userData, setActiveTab) => (dispatch) => {
   console.log(userData);
   axios
     .post("/users/register", userData)
-    .then((res) => history.push("/auth"))
+    .then((res) => setActiveTab("Login"))
     .catch((err) =>
       dispatch({
         type: GET_ERRORS,
