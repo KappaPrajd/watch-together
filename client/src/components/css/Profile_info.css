@@ -1,0 +1,5 @@
+.profile_info_box {
+  grid-column: 12 / 10;
+  grid-row: 2 / 8;
+  background-color: aliceblue;
+}
