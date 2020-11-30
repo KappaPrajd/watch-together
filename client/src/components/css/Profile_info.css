@@ -1,5 +1,10 @@
 .profile_info_box {
-  grid-column: 12 / 10;
-  grid-row: 2 / 8;
-  background-color: aliceblue;
+  display: grid;
+  grid-column: 11 / 13;
+  grid-row: 2 / 7;
+  z-index: 2;
+  background-color: white;
+  box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.151);
+  border-radius: 5%;
+  margin: 5px;
 }

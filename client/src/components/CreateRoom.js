@@ -13,7 +13,7 @@ const CreateRoom = () => {
           <input type="text" name="movie_title"></input>
           <label>Url</label>
           <input type="text" name="movie_url"></input>
-          <button name="form_button">Submit movie</button>
+          <button>Submit movie</button>
         </div>
       </form>
     </div>
