@@ -1,9 +1,28 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import "./css/Navbar.css";
+import ProfileInfo from "./ProfileInfo";
 
 const Navbar = ({ isAuthenticated }) => {
+  const [showProfileInfo, setShowProfileInfo] = useState(false);
+  const profileRef = useRef();
+
+  const useOutsideAlerter = (ref) => {
+    useEffect(() => {
+      const handleClickOutside = (event) => {
+        if (ref.current && !ref.current.contains(event.target)) {
+          setShowProfileInfo(false);
+        }
+      };
+
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => {
+        document.removeEventListener("mousedown", handleClickOutside);
+      };
+    }, [ref]);
+  };
+
   const renderItems = () => {
     if (isAuthenticated) {
       return (
@@ -12,7 +31,11 @@ const Navbar = ({ isAuthenticated }) => {
             <li>About</li>
           </Link>
           <li>
-            <i className="far fa-user-circle"></i>
+            <i
+              className="far fa-user-circle"
+              onClick={() => setShowProfileInfo(!showProfileInfo)}
+              ref={profileRef}
+            ></i>
           </li>
           <li>
             <i className="fab fa-github"></i>
@@ -32,16 +55,20 @@ const Navbar = ({ isAuthenticated }) => {
     }
   };
 
+  useOutsideAlerter(profileRef);
   return (
-    <div className="nav">
-      <div className="icon">
-        <i className="fas fa-play-circle"></i>
+    <React.Fragment>
+      <div className="nav">
+        <div className="icon">
+          <i className="fas fa-play-circle"></i>
+        </div>
+        <div className="search-movie">
+          <input type="text" placeholder="Search your movies..."></input>
+        </div>
+        <div className="nav-items">{renderItems()}</div>
       </div>
-      <div className="search-movie">
-        <input type="text" placeholder="Search your movies..."></input>
-      </div>
-      <div className="nav-items">{renderItems()}</div>
-    </div>
+      <ProfileInfo active={showProfileInfo} />
+    </React.Fragment>
   );
 };
 

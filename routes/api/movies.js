@@ -33,4 +33,13 @@ router.post("/add", (req, res) => {
   }
 });
 
+//@route GET api/movies/user
+//@desc Get user movies
+//@access Public
+router.get("/user", (req, res) => {
+  Movie.find({ userId: req.query.userId })
+    .sort({ date: -1 })
+    .then((movies) => res.json(movies));
+});
+
 module.exports = router;

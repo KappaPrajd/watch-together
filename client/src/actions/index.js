@@ -2,10 +2,9 @@ import axios from "axios";
 import setAuthToken from "../utils/setAuthToken";
 import jwt_decode from "jwt-decode";
 
-import { GET_ERRORS, SET_CURRENT_USER } from "./types";
+import { GET_ERRORS, SET_CURRENT_USER, GET_USER_MOVIES } from "./types";
 
 export const registerUser = (userData, setActiveTab) => (dispatch) => {
-  console.log(userData);
   axios
     .post("/users/register", userData)
     .then((res) => setActiveTab("Login"))
@@ -50,4 +49,36 @@ export const logoutUser = () => (dispatch) => {
   localStorage.removeItem("jwtToken");
   setAuthToken(false);
   dispatch(setCurrentUser({}));
+};
+
+export const addMovie = (movieData) => (dispatch) => {
+  axios
+    .post("/movies/add", movieData)
+    .then(() => {
+      dispatch(fetchUserMovies(movieData.userId));
+    })
+    .catch((err) =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data,
+      })
+    );
+};
+
+export const fetchUserMovies = (userId) => (dispatch) => {
+  axios
+    .get("/movies/user", {
+      params: {
+        userId,
+      },
+    })
+    .then((res) => {
+      const movies = res.data;
+
+      dispatch({
+        type: GET_USER_MOVIES,
+        payload: movies,
+      });
+    })
+    .catch((err) => console.log(err));
 };

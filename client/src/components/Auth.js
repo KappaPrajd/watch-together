@@ -6,11 +6,11 @@ import "./css/Auth.css";
 const Auth = () => {
   const [activeTab, setActiveTab] = useState("Login");
 
-  const renderForm = () => {
-    const handleClick = (tab) => {
-      setActiveTab(tab);
-    };
+  const handleClick = (tab) => {
+    setActiveTab(tab);
+  };
 
+  const renderForm = () => {
     switch (activeTab) {
       case "Register":
         return <Register handleClick={handleClick} />;
