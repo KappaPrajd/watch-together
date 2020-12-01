@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { fetchUserMovies } from "../actions";
+import MovieItem from "./MovieItem";
 import "./css/Library.css";
 
 class Library extends Component {
@@ -10,7 +11,7 @@ class Library extends Component {
 
   renderMovies() {
     return this.props.movies.map((movie) => {
-      return <p key={movie._id}>{movie.title}</p>;
+      return <MovieItem movie={movie} key={movie._id} />;
     });
   }
 

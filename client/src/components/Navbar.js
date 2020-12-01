@@ -6,7 +6,7 @@ import ProfileInfo from "./ProfileInfo";
 
 const Navbar = ({ isAuthenticated }) => {
   const [showProfileInfo, setShowProfileInfo] = useState(false);
-  const profileRef = useRef();
+  const profileIconRef = useRef();
 
   const useOutsideAlerter = (ref) => {
     useEffect(() => {
@@ -34,7 +34,7 @@ const Navbar = ({ isAuthenticated }) => {
             <i
               className="far fa-user-circle"
               onClick={() => setShowProfileInfo(!showProfileInfo)}
-              ref={profileRef}
+              ref={profileIconRef}
             ></i>
           </li>
           <li>
@@ -55,7 +55,7 @@ const Navbar = ({ isAuthenticated }) => {
     }
   };
 
-  useOutsideAlerter(profileRef);
+  useOutsideAlerter(profileIconRef);
   return (
     <React.Fragment>
       <div className="nav">

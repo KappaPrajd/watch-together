@@ -7,6 +7,7 @@ import { store } from "../index";
 import Landing from "./Landing";
 import Auth from "./Auth";
 import About from "./About";
+import Room from "./Room";
 import "./css/App.css";
 
 const App = () => {
@@ -28,6 +29,7 @@ const App = () => {
       <Route path="/" exact component={Landing} />
       <Route path="/auth" exact component={Auth} />
       <Route path="/about" exact component={About} />
+      <Route path="/room" exact component={Room} />
     </Router>
   );
 };
