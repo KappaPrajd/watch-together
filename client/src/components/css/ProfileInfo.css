@@ -22,7 +22,7 @@
 .profile-info-box form i {
   grid-column: 2 / 2;
   grid-row: 2/ 2;
-  scale: 1.8;
+  font-size: 5rem;
 }
 .profile-name {
   grid-column: 2 / 2;
