@@ -7,11 +7,16 @@ import ProfileInfo from "./ProfileInfo";
 const Navbar = ({ isAuthenticated }) => {
   const [showProfileInfo, setShowProfileInfo] = useState(false);
   const profileIconRef = useRef();
+  const profileInfoRef = useRef();
 
   const useOutsideAlerter = (ref) => {
     useEffect(() => {
       const handleClickOutside = (event) => {
-        if (ref.current && !ref.current.contains(event.target)) {
+        if (
+          ref.current &&
+          !ref.current.contains(event.target) &&
+          !profileInfoRef.current.contains(event.target)
+        ) {
           setShowProfileInfo(false);
         }
       };
@@ -56,6 +61,7 @@ const Navbar = ({ isAuthenticated }) => {
   };
 
   useOutsideAlerter(profileIconRef);
+
   return (
     <React.Fragment>
       <div className="nav">
@@ -67,7 +73,14 @@ const Navbar = ({ isAuthenticated }) => {
         </div>
         <div className="nav-items">{renderItems()}</div>
       </div>
-      <ProfileInfo active={showProfileInfo} />
+
+      <div
+        className="profile-info-box"
+        style={{ zIndex: showProfileInfo ? 1 : -1 }}
+        ref={profileInfoRef}
+      >
+        <ProfileInfo />
+      </div>
     </React.Fragment>
   );
 };

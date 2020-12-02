@@ -1,4 +1,4 @@
-.profile_info_box {
+.profile-info-box {
   display: grid;
   grid-column: 11 / 13;
   grid-row: 2 / 7;
