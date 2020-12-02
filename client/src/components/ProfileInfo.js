@@ -13,13 +13,7 @@ const ProfileInfo = (props) => {
       <form>
         <i className="fas fa-user-circle"></i>
         <div className="profile_name">J00zef11</div>
-<<<<<<< HEAD
-        <div className="profile_mail">jozek1312@gmail.pl</div>
-        <hr></hr>
-        <button className="signout_button">Log out</button>
-=======
         <button onClick={handleClick}>Log out</button>
->>>>>>> ce7d5ada5cdb5fb0b93155e0e53216bb3735848c
       </form>
     </React.Fragment>
   );
