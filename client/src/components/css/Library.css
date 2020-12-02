@@ -1,7 +1,20 @@
 .library {
-  grid-column-start: 1;
-  grid-column-end: 3;
-  grid-row-start: 2;
-  grid-row-end: 13;
-  border-right: 1px solid #09f;
+  display: flex;
+  flex-direction: column;
+  grid-column: 1 / 4;
+  grid-row: 2 /13;
+  width: 16.65vw;
+  background-color: #003a61;
+  border-right: 1px solid white;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  box-sizing: content-box;
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
+}
+.library::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
+}
+.library :first-child {
+  margin: 6px 0px 3px 0px;
 }
