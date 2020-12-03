@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { v4 as uuidv4 } from "uuid";
+import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { addMovie } from "../actions/";
 import "./css/CreateRoom.css";
@@ -15,20 +17,22 @@ class CreateRoom extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
+
+    if (this.props.auth.isAuthenticated) {
+      const newMovie = {
+        title: this.state.title,
+        url: this.state.url,
+        userId: this.props.auth.user.id,
+      };
+
+      this.props.addMovie(newMovie);
+    }
+
+    this.props.history.push(`/room/${uuidv4()}`);
   };
 
   handleInputChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
-  };
-
-  handleClick = () => {
-    const newMovie = {
-      title: this.state.title,
-      url: this.state.url,
-      userId: this.props.auth.user.id,
-    };
-
-    this.props.addMovie(newMovie);
   };
 
   render() {
@@ -57,7 +61,7 @@ class CreateRoom extends Component {
               onChange={this.handleInputChange}
             ></input>
             {errors.url ? <p className="error">{errors.url}</p> : null}
-            <button onClick={this.handleClick}>Submit movie</button>
+            <button>Submit movie</button>
           </div>
         </form>
       </div>
@@ -72,4 +76,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { addMovie })(CreateRoom);
+export default connect(mapStateToProps, { addMovie })(withRouter(CreateRoom));

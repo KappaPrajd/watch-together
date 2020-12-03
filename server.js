@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const passport = require("passport");
 const socketio = require("socket.io");
+const { userJoin } = require("./utils/users");
 
 const users = require("./routes/api/users");
 const movies = require("./routes/api/movies");
@@ -13,7 +14,7 @@ const server = http.createServer(app);
 const io = socketio(server, {
   cors: {
     origin: "http://localhost:3000",
-    methods: ["GET", "POEST"],
+    methods: ["GET", "POST"],
     credentials: true,
   },
 });
@@ -44,8 +45,14 @@ app.use("/api/movies", movies);
 io.on("connection", (socket) => {
   console.log("user connected");
 
-  socket.on("click", (message) => {
-    socket.broadcast.emit("message", message);
+  socket.on("joinRoom", ({ username, room }) => {
+    const user = userJoin(socket.id, username, room);
+
+    socket.join(user.room);
+
+    socket.on("click", (message) => {
+      socket.broadcast.to(user.room).emit("message", message);
+    });
   });
 
   socket.on("disconnect", () => {

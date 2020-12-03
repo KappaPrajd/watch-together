@@ -2,7 +2,13 @@ import axios from "axios";
 import setAuthToken from "../utils/setAuthToken";
 import jwt_decode from "jwt-decode";
 
-import { GET_ERRORS, SET_CURRENT_USER, GET_USER_MOVIES } from "./types";
+import {
+  GET_ERRORS,
+  SET_CURRENT_USER,
+  GET_USER_MOVIES,
+  SET_CURRENT_ROOM,
+  SET_CURRENT_MOVIE,
+} from "./types";
 
 export const registerUser = (userData, setActiveTab) => (dispatch) => {
   axios
@@ -81,4 +87,18 @@ export const fetchUserMovies = (userId) => (dispatch) => {
       });
     })
     .catch((err) => console.log(err));
+};
+
+export const setActiveRoom = (room) => {
+  return {
+    type: SET_CURRENT_ROOM,
+    payload: room,
+  };
+};
+
+export const setActiveMovie = (movie) => {
+  return {
+    type: SET_CURRENT_MOVIE,
+    payload: movie,
+  };
 };

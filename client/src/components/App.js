@@ -29,7 +29,7 @@ const App = () => {
       <Route path="/" exact component={Landing} />
       <Route path="/auth" exact component={Auth} />
       <Route path="/about" exact component={About} />
-      <Route path="/room" exact component={Room} />
+      <Route path="/room/:id" exact component={Room} />
     </Router>
   );
 };

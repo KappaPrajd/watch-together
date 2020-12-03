@@ -10,7 +10,16 @@ class Library extends Component {
   }
 
   renderMovies() {
-    return this.props.movies.map((movie) => {
+    if (!this.props.auth.isAuthenticated) {
+      return <div>Log in to add movies</div>;
+    } else if (
+      this.props.auth.isAuthenticated &&
+      this.props.movies.length === 0
+    ) {
+      return <div>Add new movies</div>;
+    }
+
+    return this.props.movies.userMovies.map((movie) => {
       return <MovieItem movie={movie} key={movie._id} />;
     });
   }
