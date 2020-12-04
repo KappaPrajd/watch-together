@@ -19,8 +19,8 @@ class Library extends Component {
       return <div>Add new movies</div>;
     }
 
-    return this.props.movies.userMovies.map((movie) => {
-      return <MovieItem movie={movie} key={movie._id} />;
+    return this.props.movies.userMovies.map((movie, index) => {
+      return <MovieItem movie={movie} key={index} />;
     });
   }
 

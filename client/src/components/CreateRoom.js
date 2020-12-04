@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { addMovie } from "../actions/";
+import { addMovie, setActiveMovie } from "../actions/";
 import "./css/CreateRoom.css";
 
 class CreateRoom extends Component {
@@ -17,17 +17,17 @@ class CreateRoom extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
+    const newMovie = {
+      title: this.state.title,
+      url: this.state.url,
+      userId: this.props.auth.user.id,
+    };
 
     if (this.props.auth.isAuthenticated) {
-      const newMovie = {
-        title: this.state.title,
-        url: this.state.url,
-        userId: this.props.auth.user.id,
-      };
-
       this.props.addMovie(newMovie);
     }
 
+    this.props.setActiveMovie(newMovie);
     this.props.history.push(`/room/${uuidv4()}`);
   };
 
@@ -76,4 +76,6 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { addMovie })(withRouter(CreateRoom));
+export default connect(mapStateToProps, { addMovie, setActiveMovie })(
+  withRouter(CreateRoom)
+);

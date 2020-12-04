@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import SocketIOClient from "socket.io-client";
 import { connect } from "react-redux";
-import { setActiveRoom } from "../actions";
+import { setActiveRoom, setActiveMovie } from "../actions";
 
 class Room extends Component {
   constructor() {
@@ -35,6 +35,7 @@ class Room extends Component {
 
   componentWillUnmount() {
     this.props.setActiveRoom(null);
+    this.props.setActiveMovie(null);
   }
 
   handleClick = () => {
@@ -53,4 +54,6 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { setActiveRoom })(Room);
+export default connect(mapStateToProps, { setActiveRoom, setActiveMovie })(
+  Room
+);

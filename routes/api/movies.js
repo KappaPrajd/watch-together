@@ -39,7 +39,13 @@ router.post("/add", (req, res) => {
 router.get("/user", (req, res) => {
   Movie.find({ userId: req.query.userId })
     .sort({ date: -1 })
-    .then((movies) => res.json(movies));
+    .then((movies) => {
+      movies = movies.map((movie) => {
+        return { title: movie.title, url: movie.url };
+      });
+
+      res.json(movies);
+    });
 });
 
 module.exports = router;
