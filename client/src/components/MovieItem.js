@@ -5,10 +5,13 @@ import { withRouter } from "react-router-dom";
 import { setActiveMovie } from "../actions";
 import "./css/Movieitem.css";
 
-const MovieItem = ({ movie, setActiveMovie, history }) => {
+const MovieItem = ({ movie, setActiveMovie, history, movies }) => {
   const handleClick = () => {
     setActiveMovie(movie);
-    history.push(`/room/${uuidv4()}`);
+
+    if (!movies.activeRoom) {
+      history.push(`/room/${uuidv4()}`);
+    }
   };
 
   return (
