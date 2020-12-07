@@ -1,11 +1,11 @@
 .library {
   display: flex;
   flex-direction: column;
-  grid-column: 1 / 4;
+  grid-column: 1 / 3;
   grid-row: 2 /13;
-  width: 16.65vw;
-  background-color: #003a61;
-  border-right: 1px solid white;
+  align-items: center;
+  background-color: #005e9c;
+  /*border-right: 3px solid #003a61;*/
   overflow-y: scroll;
   overflow-x: hidden;
   box-sizing: content-box;
@@ -16,5 +16,5 @@
   display: none; /* Safari and Chrome */
 }
 .library :first-child {
-  margin: 6px 0px 3px 0px;
+  margin: 4px 2px 2px 0px;
 }

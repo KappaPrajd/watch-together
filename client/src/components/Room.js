@@ -43,7 +43,21 @@ class Room extends Component {
   };
 
   render() {
-    return <button onClick={this.handleClick}>click</button>;
+    return (
+      //<button onClick={this.handleClick}>click</button>;
+
+      <div className="room">
+        <div className="player">
+          <div className="video-box"></div>
+          <button>a</button>
+          <button>v</button>
+          <button>b</button>
+        </div>
+        <div className="user-chat"></div>
+        <div className="movie-link"></div>
+        <div className="user-list"></div>
+      </div>
+    );
   }
 }
 

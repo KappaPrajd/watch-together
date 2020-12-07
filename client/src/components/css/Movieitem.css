@@ -2,21 +2,18 @@
   display: grid;
   grid-template-rows: repeat(5, 1fr);
   grid-template-columns: 1fr;
-  background-color: #09f;
-  width: 14vw;
+  background-color: rgba(0, 0, 0, 0.158);
+  width: 100%;
   justify-items: center;
   align-content: center;
   height: 7vh;
   color: white;
-  margin: 3px 0px 3px 0px;
-  border-radius: 0px 15px 15px 0px;
-  padding: 5px 0px 5px 0px;
+  margin: 2px 2px 2px 0px;
+  border-radius: 0px 10px 10px 0px;
 
-  transition: width 0.4s ease-in-out, height 0.2s ease-out,
-    background-color 0.5s ease-in-out;
+  transition: height 0.4s ease-in-out, background-color 0.5s ease-in-out;
 }
 .movie-item:hover {
-  width: 16vw;
   height: 10.5vh;
   background-color: #4169e1;
   box-shadow: 0 4px 20px 0 rgba(0, 58, 97, 0.24);

@@ -2,6 +2,8 @@
   display: grid;
   grid-template-columns: repeat(3, 10fr);
   grid-template-rows: repeat(3, 10fr);
+  grid-row: 5 / 5;
+  grid-column: 5 / 5;
   width: 30vw;
   height: 40vh;
   box-shadow: 0 4px 20px 0 rgba(0, 58, 97, 0.15);
