@@ -28,6 +28,10 @@ const Navbar = ({ isAuthenticated }) => {
     }, [ref]);
   };
 
+  const renderProfileInfo = () => {
+    return showProfileInfo ? <ProfileInfo /> : null;
+  };
+
   const renderItems = () => {
     if (isAuthenticated) {
       return (
@@ -65,22 +69,14 @@ const Navbar = ({ isAuthenticated }) => {
   return (
     <React.Fragment>
       <div className="nav">
-        <div className="icon">
-          <i className="fas fa-play-circle"></i>
-        </div>
+        <div className="icon"></div>
+        <i className="fas fa-play-circle"></i>
         <div className="search-movie">
           <input type="text" placeholder="Search your movies..."></input>
         </div>
         <div className="nav-items">{renderItems()}</div>
       </div>
-
-      <div
-        className="profile-info-box"
-        style={{ zIndex: showProfileInfo ? 1 : -1 }}
-        ref={profileInfoRef}
-      >
-        <ProfileInfo />
-      </div>
+      {renderProfileInfo()}
     </React.Fragment>
   );
 };

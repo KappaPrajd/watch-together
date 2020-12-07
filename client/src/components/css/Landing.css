@@ -16,6 +16,8 @@
   grid-row-end: 13;
   align-items: center;
   justify-content: center;
+  background-image: url("https://res.cloudinary.com/dn5jmkxbb/image/upload/v1607369604/wave_bg_cynjl1.png");
+  background-size: cover;
 }
 
 .add-movie img {

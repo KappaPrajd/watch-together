@@ -10,15 +10,17 @@ const ProfileInfo = (props) => {
 
   return (
     <React.Fragment>
-      <form>
-        <i className="fas fa-user-circle"></i>
-        <div className="profile-name">J00zef11</div>
-        <div className="profile-mail">j0zek1312@gmail.pl</div>
-        <hr></hr>
-        <button className="signout-button" onClick={handleClick}>
-          Log out
-        </button>
-      </form>
+      <div className="profile-info-box">
+        <form>
+          <i className="fas fa-user-circle"></i>
+          <div className="profile-name">J00zef11</div>
+          <div className="profile-mail">j0zek1312@gmail.pl</div>
+          <hr></hr>
+          <button className="signout-button" onClick={handleClick}>
+            Log out
+          </button>
+        </form>
+      </div>
     </React.Fragment>
   );
 };
