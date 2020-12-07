@@ -13,10 +13,13 @@ const Navbar = ({ isAuthenticated }) => {
     useEffect(() => {
       const handleClickOutside = (event) => {
         if (
-          ref.current &&
-          !ref.current.contains(event.target) &&
-          !profileInfoRef.current.contains(event.target)
+          profileInfoRef.current &&
+          profileInfoRef.current.contains(event.target)
         ) {
+          return;
+        }
+
+        if (ref.current && !ref.current.contains(event.target)) {
           setShowProfileInfo(false);
         }
       };
@@ -29,7 +32,15 @@ const Navbar = ({ isAuthenticated }) => {
   };
 
   const renderProfileInfo = () => {
-    return showProfileInfo ? <ProfileInfo /> : null;
+    if (showProfileInfo) {
+      return (
+        <div className="profile-info-box" ref={profileInfoRef}>
+          <ProfileInfo />
+        </div>
+      );
+    }
+
+    return null;
   };
 
   const renderItems = () => {

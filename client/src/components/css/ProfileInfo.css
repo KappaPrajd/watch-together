@@ -8,6 +8,7 @@
   box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.151);
   border-radius: 5%;
   margin: 5px;
+  z-index: 99;
 }
 .profile-info-box form {
   display: grid;
