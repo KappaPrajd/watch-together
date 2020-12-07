@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import SocketIOClient from "socket.io-client";
 import { connect } from "react-redux";
 import { setActiveRoom, setActiveMovie } from "../actions";
+import Navbar from "./Navbar";
+import Library from "./Library";
+import Player from "./Player";
 
 class Room extends Component {
   constructor() {
@@ -43,7 +46,15 @@ class Room extends Component {
   };
 
   render() {
-    return <button onClick={this.handleClick}>click</button>;
+    return (
+      <React.Fragment>
+        <Navbar />
+        <Library />
+        <div className="add-movie">
+          <Player />
+        </div>
+      </React.Fragment>
+    );
   }
 }
 
