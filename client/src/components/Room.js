@@ -5,6 +5,7 @@ import { setActiveRoom, setActiveMovie } from "../actions";
 import Navbar from "./Navbar";
 import Library from "./Library";
 import Player from "./Player";
+import Chat from "./Chat";
 
 class Room extends Component {
   constructor() {
@@ -51,8 +52,8 @@ class Room extends Component {
         <Navbar />
         <Library />
         <div className="add-movie">
-          <img src="../img/wave_bg.png" alt="wave_bg"></img>
           <Player />
+          <Chat />
         </div>
       </React.Fragment>
     );

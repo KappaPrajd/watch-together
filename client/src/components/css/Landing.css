@@ -15,16 +15,7 @@
   grid-row-start: 2;
   grid-row-end: 13;
   align-items: center;
-  justify-content: center;
+  justify-items: center;
   background-image: url("https://res.cloudinary.com/dn5jmkxbb/image/upload/v1607369604/wave_bg_cynjl1.png");
   background-size: cover;
-}
-
-.add-movie img {
-  grid-column-start: 1;
-  grid-column-end: 10;
-  grid-row-start: 1;
-  grid-row-end: 11;
-  height: 91.6vh;
-  width: 60vw;
 }
