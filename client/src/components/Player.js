@@ -1,10 +1,11 @@
 import React from "react";
+import { connect } from "react-redux";
 import "./css/Player.css";
 
 const Player = () => {
   return (
     <div className="player">
-      <div class="movie-holder"></div>
+      <div className="movie-holder"></div>
       <div className="movie-controls">
         <button>-5s</button>
         <button>start/stop</button>
@@ -14,4 +15,10 @@ const Player = () => {
   );
 };
 
-export default Player;
+const mapStateToProps = (state) => {
+  return {
+    movies: state.movies,
+  };
+};
+
+export default connect(mapStateToProps)(Player);

@@ -4,10 +4,12 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const passport = require("passport");
 const socketio = require("socket.io");
-const { userJoin } = require("./utils/users");
+const axios = require("axios");
+const { userJoin, userLeave, getRoomUsers } = require("./utils/users");
 
 const users = require("./routes/api/users");
 const movies = require("./routes/api/movies");
+const rooms = require("./routes/api/rooms");
 
 const app = express();
 const server = http.createServer(app);
@@ -34,6 +36,8 @@ mongoose
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.log(err));
 
+mongoose.set("useFindAndModify", false);
+
 //passport middleware
 app.use(passport.initialize());
 require("./config/passport")(passport);
@@ -41,6 +45,7 @@ require("./config/passport")(passport);
 //Routes
 app.use("/api/users", users);
 app.use("/api/movies", movies);
+app.use("/api/rooms", rooms);
 
 io.on("connection", (socket) => {
   console.log("user connected");
@@ -53,10 +58,28 @@ io.on("connection", (socket) => {
     socket.on("click", (message) => {
       socket.broadcast.to(user.room).emit("message", message);
     });
+
+    io.to(user.room).emit("roomUsers", {
+      room: user.room,
+      users: getRoomUsers(user.room),
+    });
   });
 
   socket.on("disconnect", () => {
-    console.log("user disconnected");
+    const user = userLeave(socket.id);
+
+    io.to(user.room).emit("roomUsers", {
+      room: user.room,
+      users: getRoomUsers(user.room),
+    });
+
+    const userList = getRoomUsers(user.room);
+
+    if (userList.length === 0) {
+      axios
+        .post("http://127.0.0.1:5000/api/rooms/delete", { id: user.room })
+        .catch((err) => console.log(err));
+    }
   });
 });
 

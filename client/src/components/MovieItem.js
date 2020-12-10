@@ -2,15 +2,21 @@ import React from "react";
 import { v4 as uuidv4 } from "uuid";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { setActiveMovie } from "../actions";
+import { changeActiveMovie, setActiveRoom } from "../actions";
 import "./css/Movieitem.css";
 
-const MovieItem = ({ movie, setActiveMovie, history, movies }) => {
-  const handleClick = () => {
-    setActiveMovie(movie);
-
+const MovieItem = ({ movie, changeActiveMovie, history, movies }) => {
+  const handleClick = async () => {
     if (!movies.activeRoom) {
-      history.push(`/room/${uuidv4()}`);
+      const roomId = uuidv4();
+      history.push(`/room/${roomId}`);
+      await setActiveRoom(roomId);
+      changeActiveMovie(movie, roomId);
+    } else {
+      const url = window.location.href.split("/");
+      const Id = url[url.length - 1];
+      await setActiveRoom(Id);
+      changeActiveMovie(movie, Id);
     }
   };
 
@@ -31,6 +37,6 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { setActiveMovie })(
+export default connect(mapStateToProps, { changeActiveMovie })(
   withRouter(MovieItem)
 );

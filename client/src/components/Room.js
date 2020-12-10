@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import SocketIOClient from "socket.io-client";
 import { connect } from "react-redux";
-import { setActiveRoom, setActiveMovie } from "../actions";
+import { withRouter } from "react-router-dom";
+import { setActiveRoom, setActiveMovie, changeActiveRoom } from "../actions";
 import Navbar from "./Navbar";
 import Library from "./Library";
 import Player from "./Player";
@@ -11,11 +12,19 @@ class Room extends Component {
   constructor() {
     super();
 
+    this.state = {
+      roomUsers: [],
+    };
+
     this.ENDPOINT = "http://localhost:5000/";
     this.socket = SocketIOClient(this.ENDPOINT);
 
     this.socket.on("message", (message) => {
       console.log(message);
+    });
+
+    this.socket.on("roomUsers", ({ users }) => {
+      this.setState({ roomUsers: users });
     });
   }
 
@@ -27,7 +36,7 @@ class Room extends Component {
       id: roomId,
     };
 
-    this.props.setActiveRoom(newRoom);
+    this.props.setActiveRoom(newRoom, this.props.history);
 
     this.socket.emit("joinRoom", {
       username: this.props.auth.isAuthenticated
@@ -38,8 +47,9 @@ class Room extends Component {
   }
 
   componentWillUnmount() {
-    this.props.setActiveRoom(null);
+    this.props.changeActiveRoom(null);
     this.props.setActiveMovie(null);
+    this.socket.disconnect();
   }
 
   handleClick = () => {
@@ -67,6 +77,8 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { setActiveRoom, setActiveMovie })(
-  Room
-);
+export default connect(mapStateToProps, {
+  setActiveRoom,
+  setActiveMovie,
+  changeActiveRoom,
+})(withRouter(Room));
