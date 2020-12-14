@@ -1,33 +1,30 @@
-import React, { Component } from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { fetchUserMovies } from "../actions";
 import MovieItem from "./MovieItem";
 import "./css/Library.css";
 
-class Library extends Component {
-  componentDidMount() {
-    this.props.fetchUserMovies(this.props.auth.user.id);
-  }
+const Library = ({ auth, movies, changeMovie, fetchUserMovies }) => {
+  useEffect(() => {
+    if (auth.isAuthenticated) {
+      fetchUserMovies(auth.user.id);
+    }
+  }, [auth.isAuthenticated, auth.user.id, fetchUserMovies]);
 
-  renderMovies() {
-    if (!this.props.auth.isAuthenticated) {
+  const renderMovies = () => {
+    if (!auth.isAuthenticated) {
       return <div>Log in to add movies</div>;
-    } else if (
-      this.props.auth.isAuthenticated &&
-      this.props.movies.length === 0
-    ) {
+    } else if (auth.isAuthenticated && movies.length === 0) {
       return <div>Add new movies</div>;
     }
 
-    return this.props.movies.userMovies.map((movie, index) => {
-      return <MovieItem movie={movie} key={index} />;
+    return movies.userMovies.map((movie, index) => {
+      return <MovieItem movie={movie} key={index} changeMovie={changeMovie} />;
     });
-  }
+  };
 
-  render() {
-    return <div className="library">{this.renderMovies()}</div>;
-  }
-}
+  return <div className="library">{renderMovies()}</div>;
+};
 
 const mapStateToProps = (state) => {
   return {

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import SocketIOClient from "socket.io-client";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { setActiveRoom, setActiveMovie, changeActiveRoom } from "../actions";
+import { setUserState } from "../actions";
 import Navbar from "./Navbar";
 import Library from "./Library";
 import Player from "./Player";
@@ -13,8 +13,12 @@ class Room extends Component {
     super();
 
     this.state = {
-      roomUsers: [],
+      globalURL: "",
+      globalTitle: "",
     };
+
+    this.url = window.location.href.split("/");
+    this.roomId = this.url[this.url.length - 1];
 
     this.ENDPOINT = "http://localhost:5000/";
     this.socket = SocketIOClient(this.ENDPOINT);
@@ -26,30 +30,35 @@ class Room extends Component {
     this.socket.on("roomUsers", ({ users }) => {
       this.setState({ roomUsers: users });
     });
+
+    this.socket.on("fetchedURL", (movie) => {
+      if (!movie) {
+        this.socket.emit("movieChange", (this.props.title, this.props.url));
+      } else {
+        this.setState({ globalURL: movie.url, globalTitle: movie.title });
+      }
+    });
+
+    this.socket.on("changeURL", (movie) => {
+      this.setState({ globalURL: movie.url, globalTitle: movie.title });
+    });
   }
 
   componentDidMount() {
-    const url = window.location.href.split("/");
-    const roomId = url[url.length - 1];
-
-    const newRoom = {
-      id: roomId,
-    };
-
-    this.props.setActiveRoom(newRoom, this.props.history);
-
     this.socket.emit("joinRoom", {
       username: this.props.auth.isAuthenticated
         ? this.props.auth.user.name
         : "Guest",
-      room: roomId,
+      room: this.roomId,
     });
+
+    this.socket.emit("fetchURL");
+
+    this.props.setUserState(true);
   }
 
   componentWillUnmount() {
-    this.props.changeActiveRoom(null);
-    this.props.setActiveMovie(null);
-    this.socket.disconnect();
+    this.props.setUserState(false);
   }
 
   handleClick = () => {
@@ -60,9 +69,9 @@ class Room extends Component {
     return (
       <React.Fragment>
         <Navbar />
-        <Library />
+        <Library changeMovie={this.props.changeMovie} />
         <div className="add-movie">
-          <Player />
+          <Player url={this.props.url} />
           <Chat />
         </div>
       </React.Fragment>
@@ -77,8 +86,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, {
-  setActiveRoom,
-  setActiveMovie,
-  changeActiveRoom,
-})(withRouter(Room));
+export default connect(mapStateToProps, { setUserState })(withRouter(Room));

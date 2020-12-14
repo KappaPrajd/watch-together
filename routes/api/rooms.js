@@ -5,6 +5,19 @@ const validateRoomInput = require("../../validation/room");
 
 const Room = require("../../models/Room");
 
+//@route GET api/rooms/get
+//@desc Get room info
+//@access Public
+router.get("/get", (req, res) => {
+  Room.findOne({ id: req.query.id })
+    .then((room) => {
+      return res.status(200).json({ room: room });
+    })
+    .catch((err) => {
+      return res.status(404).json({ room: "Room not found" });
+    });
+});
+
 //@route POST api/rooms/add
 //@desc Add new room
 //@access Public

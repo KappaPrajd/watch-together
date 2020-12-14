@@ -5,7 +5,13 @@ const bodyParser = require("body-parser");
 const passport = require("passport");
 const socketio = require("socket.io");
 const axios = require("axios");
-const { userJoin, userLeave, getRoomUsers } = require("./utils/users");
+const {
+  userJoin,
+  userLeave,
+  getRoomUsers,
+  getRoomUrl,
+  changeRoomUrl,
+} = require("./utils/users");
 
 const users = require("./routes/api/users");
 const movies = require("./routes/api/movies");
@@ -63,6 +69,18 @@ io.on("connection", (socket) => {
       room: user.room,
       users: getRoomUsers(user.room),
     });
+
+    socket.on("movieChange", (url, title) => {
+      const movie = changeRoomUrl(user.room, url, title);
+
+      io.to(user.room).emit("changeURL", movie);
+    });
+
+    socket.on("fetchURL", () => {
+      const movie = getRoomUrl();
+
+      socket.emit("fetchedURL", movie);
+    });
   });
 
   socket.on("disconnect", () => {
@@ -76,9 +94,11 @@ io.on("connection", (socket) => {
     const userList = getRoomUsers(user.room);
 
     if (userList.length === 0) {
-      axios
-        .post("http://127.0.0.1:5000/api/rooms/delete", { id: user.room })
-        .catch((err) => console.log(err));
+      setTimeout(() => {
+        axios
+          .post("http://127.0.0.1:5000/api/rooms/delete", { id: user.room })
+          .catch((err) => console.log(err));
+      }, 30000);
     }
   });
 });

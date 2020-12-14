@@ -6,8 +6,7 @@ import {
   GET_ERRORS,
   SET_CURRENT_USER,
   GET_USER_MOVIES,
-  SET_CURRENT_ROOM,
-  SET_CURRENT_MOVIE,
+  SET_USER_STATE,
 } from "./types";
 
 export const registerUser = (userData, setActiveTab) => (dispatch) => {
@@ -89,44 +88,9 @@ export const fetchUserMovies = (userId) => (dispatch) => {
     .catch((err) => console.log(err));
 };
 
-export const setActiveRoom = (room, history) => (dispatch) => {
-  axios
-    .post("/rooms/add", room)
-    .then((res) => {
-      dispatch({
-        type: SET_CURRENT_ROOM,
-        payload: room,
-      });
-    })
-    .catch((err) => history.push("/"));
-};
-
-export const changeActiveRoom = (room) => {
+export const setUserState = (bool) => {
   return {
-    type: SET_CURRENT_ROOM,
-    payload: room,
+    type: SET_USER_STATE,
+    payload: bool,
   };
-};
-
-export const setActiveMovie = (movie) => {
-  return {
-    type: SET_CURRENT_MOVIE,
-    payload: movie,
-  };
-};
-
-export const changeActiveMovie = (movie, roomId) => (dispatch) => {
-  axios
-    .put("/rooms/edit", {
-      id: roomId,
-      url: movie.url || null,
-      title: movie.title || null,
-    })
-    .then(() => {
-      dispatch({
-        type: SET_CURRENT_MOVIE,
-        payload: movie,
-      });
-    })
-    .catch((err) => console.log(err));
 };
