@@ -6,10 +6,11 @@ import "./css/Movieitem.css";
 
 const MovieItem = (props) => {
   const handleClick = () => {
-    props.changeMovie(props.movie.url, props.movie.title);
-
     if (!props.movies.isInRoom) {
+      props.changeMovie(props.movie.url, props.movie.title);
       props.history.push(`/room/${uuidv4()}`);
+    } else {
+      props.handleMovieChange(props.movie.url, props.movie.title)
     }
   };
 

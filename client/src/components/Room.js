@@ -23,23 +23,20 @@ class Room extends Component {
     this.ENDPOINT = "http://localhost:5000/";
     this.socket = SocketIOClient(this.ENDPOINT);
 
-    this.socket.on("message", (message) => {
-      console.log(message);
-    });
-
     this.socket.on("roomUsers", ({ users }) => {
       this.setState({ roomUsers: users });
     });
 
     this.socket.on("fetchedURL", (movie) => {
-      if (!movie) {
-        this.socket.emit("movieChange", (this.props.title, this.props.url));
+      if (!movie.url) {
+        this.handleMovieChange(this.props.url, this.props.title);
       } else {
         this.setState({ globalURL: movie.url, globalTitle: movie.title });
       }
     });
 
     this.socket.on("changeURL", (movie) => {
+      console.log(movie)
       this.setState({ globalURL: movie.url, globalTitle: movie.title });
     });
   }
@@ -65,13 +62,20 @@ class Room extends Component {
     this.socket.emit("click", "another user has clicked on the page");
   };
 
+  handleMovieChange = (url, title) => {
+    this.socket.emit("movieChange", ({
+      url: url,
+      title: title
+    }));
+  }
+
   render() {
     return (
       <React.Fragment>
         <Navbar />
-        <Library changeMovie={this.props.changeMovie} />
+        <Library changeMovie={this.props.changeMovie} handleMovieChange={this.handleMovieChange}/>
         <div className="add-movie">
-          <Player url={this.props.url} />
+          <Player url={this.state.globalURL} />
           <Chat />
         </div>
       </React.Fragment>

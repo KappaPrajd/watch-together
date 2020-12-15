@@ -20,8 +20,14 @@ function getRoomUsers(room) {
   return users.filter((user) => user.room === room);
 }
 
-function getRoomUrl() {
-  return globalURL;
+function getRoomUrl(room) {
+  const result = globalURL.filter(roomId => roomId.room === room);
+  
+  if (result.length > 0 ){
+    return result[0];
+  }
+
+  return result
 }
 
 function changeRoomUrl(room, url, title) {
@@ -33,7 +39,7 @@ function changeRoomUrl(room, url, title) {
     globalURL[index] = { room, url, title };
   }
 
-  return globalURL;
+  return globalURL[0];
 }
 
 module.exports = {

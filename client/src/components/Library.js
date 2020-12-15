@@ -4,7 +4,7 @@ import { fetchUserMovies } from "../actions";
 import MovieItem from "./MovieItem";
 import "./css/Library.css";
 
-const Library = ({ auth, movies, changeMovie, fetchUserMovies }) => {
+const Library = ({ auth, movies, changeMovie, fetchUserMovies, handleMovieChange }) => {
   useEffect(() => {
     if (auth.isAuthenticated) {
       fetchUserMovies(auth.user.id);
@@ -19,7 +19,7 @@ const Library = ({ auth, movies, changeMovie, fetchUserMovies }) => {
     }
 
     return movies.userMovies.map((movie, index) => {
-      return <MovieItem movie={movie} key={index} changeMovie={changeMovie} />;
+      return <MovieItem movie={movie} key={index} changeMovie={changeMovie} handleMovieChange={handleMovieChange ? handleMovieChange: null}/>;
     });
   };
 

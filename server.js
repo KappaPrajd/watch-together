@@ -61,23 +61,20 @@ io.on("connection", (socket) => {
 
     socket.join(user.room);
 
-    socket.on("click", (message) => {
-      socket.broadcast.to(user.room).emit("message", message);
-    });
-
     io.to(user.room).emit("roomUsers", {
       room: user.room,
       users: getRoomUsers(user.room),
     });
 
-    socket.on("movieChange", (url, title) => {
-      const movie = changeRoomUrl(user.room, url, title);
+    socket.on("movieChange", (data) => {
+
+      const movie = changeRoomUrl(user.room, data.url, data.title);
 
       io.to(user.room).emit("changeURL", movie);
     });
 
     socket.on("fetchURL", () => {
-      const movie = getRoomUrl();
+      const movie = getRoomUrl(user.room);
 
       socket.emit("fetchedURL", movie);
     });
