@@ -1,20 +1,44 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { connect } from "react-redux";
 import "./css/Player.css";
 
 const Player = (props) => {
-  const [isPlaying, setIsPlaying] = useState(false);
   const playerRef = useRef();
 
   useEffect(() => {
-    if(playerRef.current){
-      isPlaying ? playerRef.current.play() : playerRef.current.pause()
-    } 
-  }, [isPlaying])
+    document.addEventListener("keyup", handleKeyUp);
+
+    return () => {
+      document.removeEventListener("keyup", handleKeyUp);
+    };
+  });
 
   const handlePlayPause = () => {
-    setIsPlaying(!isPlaying);
-  }
+    props.handlePlayPause(!props.isPlaying);
+
+    if (playerRef.current) {
+      props.isPlaying ? playerRef.current.play() : playerRef.current.pause();
+    }
+  };
+
+  const handleFullScreen = () => {
+    if (playerRef.current) {
+      playerRef.current.requestFullscreen();
+    }
+  };
+
+  const handleKeyUp = (e) => {
+    switch (e.code) {
+      case "Space":
+        handlePlayPause();
+        break;
+      case "KeyF":
+        handleFullScreen();
+        break;
+      default:
+        return;
+    }
+  };
 
   const renderVideo = () => {
     return props.url ? (
@@ -32,7 +56,7 @@ const Player = (props) => {
       <div className="movie-controls">
         <button>-5s</button>
         <button onClick={handlePlayPause}>start/stop</button>
-        <button>+5s</button>
+        <button onClick={handleFullScreen}>Full screen</button>
       </div>
     </React.Fragment>
   );
