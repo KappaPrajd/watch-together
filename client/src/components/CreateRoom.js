@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { addMovie, setActiveMovie } from "../actions/";
+import { addMovie } from "../actions/";
 import "./css/CreateRoom.css";
 
 class CreateRoom extends Component {
@@ -24,11 +24,15 @@ class CreateRoom extends Component {
     };
 
     if (this.props.auth.isAuthenticated) {
-      this.props.addMovie(newMovie);
+      this.props.addMovie({
+        title: newMovie.title,
+        url: newMovie.url,
+        userId: this.props.auth.user.id,
+      });
     }
 
-    this.props.setActiveMovie(newMovie);
-    this.props.history.push(`/room/${uuidv4()}`);
+    const roomId = uuidv4();
+    this.props.history.push(`/room/${roomId}`);
   };
 
   handleInputChange = (e) => {
@@ -76,6 +80,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { addMovie, setActiveMovie })(
-  withRouter(CreateRoom)
-);
+export default connect(mapStateToProps, { addMovie })(withRouter(CreateRoom));
