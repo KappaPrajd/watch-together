@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const multer = require("multer");
 
 //validation
 const validateMovieInput = require("../../validation/movie");
@@ -11,26 +12,46 @@ const Movie = require("../../models/Movie");
 //@desc Add Movie
 //@access Public
 router.post("/add", (req, res) => {
-  const { errors, isValid } = validateMovieInput(req.body);
+  const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, "uploads");
+    },
+    filename: function (req, file, cb) {
+      cb(null, Date.now() + "-" + file.originalname);
+    },
+  });
 
-  if (!isValid) {
-    return res.status(400).json(errors);
-  } else if (!req.body.userId) {
-    return res
-      .status(400)
-      .json({ auth: "You must be authenticated to add movie" });
-  } else {
+  const upload = multer({ storage: storage }).single("file");
+
+  upload(req, res, (err) => {
+    const { errors, isValid } = validateMovieInput(req.body);
+    if (!isValid) {
+      return res.status(400).json(errors);
+    } else if (!req.body.userId) {
+      return res
+        .status(400)
+        .json({ auth: "You must be authenticated to add movie" });
+    }
+
+    if (err instanceof multer.MulterError) {
+      return res.status(500).json(err);
+    } else if (err) {
+      return res.status(500).json(err);
+    }
+
+    const { title, userId } = req.body;
+    const url = `http:\\\\localhost:5000\\${req.file.filename}`;
+
     const newMovie = new Movie({
-      title: req.body.title,
-      url: req.body.url,
-      userId: req.body.userId,
+      title: title,
+      userId: userId,
+      url: url,
     });
 
-    newMovie
-      .save()
-      .then((movie) => res.json(movie))
-      .catch((err) => console.log(err));
-  }
+    newMovie.save();
+
+    return res.status(200).send(req.file);
+  });
 });
 
 //@route GET api/movies/user

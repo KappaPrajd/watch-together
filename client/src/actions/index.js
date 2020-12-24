@@ -11,7 +11,7 @@ import {
 
 export const registerUser = (userData, setActiveTab) => (dispatch) => {
   axios
-    .post("/users/register", userData)
+    .post("http://localhost:5000/api/users/register", userData)
     .then((res) => setActiveTab("Login"))
     .catch((err) =>
       dispatch({
@@ -23,7 +23,7 @@ export const registerUser = (userData, setActiveTab) => (dispatch) => {
 
 export const loginUser = (userData, history) => (dispatch) => {
   axios
-    .post("/users/login", userData)
+    .post("http://localhost:5000/api/users/login", userData)
     .then((res) => {
       const { token } = res.data;
       localStorage.setItem("jwtToken", token);
@@ -56,11 +56,11 @@ export const logoutUser = () => (dispatch) => {
   dispatch(setCurrentUser({}));
 };
 
-export const addMovie = (movieData) => (dispatch) => {
+export const addMovie = (formData, userId) => (dispatch) => {
   axios
-    .post("/movies/add", movieData)
+    .post("http://localhost:5000/api/movies/add", formData)
     .then(() => {
-      dispatch(fetchUserMovies(movieData.userId));
+      dispatch(fetchUserMovies(userId));
     })
     .catch((err) =>
       dispatch({
@@ -72,7 +72,7 @@ export const addMovie = (movieData) => (dispatch) => {
 
 export const fetchUserMovies = (userId) => (dispatch) => {
   axios
-    .get("/movies/user", {
+    .get("http://localhost:5000/api/movies/user", {
       params: {
         userId,
       },

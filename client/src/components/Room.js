@@ -39,6 +39,10 @@ class Room extends Component {
     this.socket.on("changeURL", (movie) => {
       this.setState({ globalURL: movie.url, globalTitle: movie.title });
     });
+
+    this.socket.on("changePlayPause", (bool) => {
+      this.setState({ isPlaying: bool });
+    });
   }
 
   componentDidMount() {
@@ -67,6 +71,8 @@ class Room extends Component {
 
   handlePlayPause = (bool) => {
     this.setState({ isPlaying: bool });
+
+    this.socket.emit("playPause", bool);
   };
 
   render() {

@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import { connect } from "react-redux";
 import "./css/Player.css";
 
-const Player = (props) => {
+const Player = ({ handlePlayPause, isPlaying, url }) => {
   const playerRef = useRef();
 
   useEffect(() => {
@@ -13,12 +13,14 @@ const Player = (props) => {
     };
   });
 
-  const handlePlayPause = () => {
-    props.handlePlayPause(!props.isPlaying);
-
+  useEffect(() => {
     if (playerRef.current) {
-      props.isPlaying ? playerRef.current.play() : playerRef.current.pause();
+      isPlaying ? playerRef.current.play() : playerRef.current.pause();
     }
+  }, [isPlaying]);
+
+  const playPause = (action) => {
+    handlePlayPause(action === "play");
   };
 
   const handleFullScreen = () => {
@@ -30,7 +32,6 @@ const Player = (props) => {
   const handleKeyUp = (e) => {
     switch (e.code) {
       case "Space":
-        handlePlayPause();
         break;
       case "KeyF":
         handleFullScreen();
@@ -41,10 +42,16 @@ const Player = (props) => {
   };
 
   const renderVideo = () => {
-    return props.url ? (
+    return url ? (
       <React.Fragment>
-        <video className="player" ref={playerRef}>
-          <source src={props.url} type="video/mp4" />
+        <video
+          className="player"
+          muted
+          ref={playerRef}
+          onPause={() => playPause("pause")}
+          onPlay={() => playPause("play")}
+        >
+          <source src={url} type="video/mp4" />
         </video>
       </React.Fragment>
     ) : null;
@@ -55,7 +62,7 @@ const Player = (props) => {
       {renderVideo()}
       <div className="movie-controls">
         <button>-5s</button>
-        <button onClick={handlePlayPause}>start/stop</button>
+        <button>start/stop</button>
         <button onClick={handleFullScreen}>Full screen</button>
       </div>
     </React.Fragment>

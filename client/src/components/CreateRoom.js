@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { v4 as uuidv4 } from "uuid";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { addMovie } from "../actions/";
@@ -11,32 +10,27 @@ class CreateRoom extends Component {
 
     this.state = {
       title: "",
-      url: "",
+      file: null,
     };
   }
 
   handleSubmit = (e) => {
     e.preventDefault();
-    const newMovie = {
-      title: this.state.title,
-      url: this.state.url,
-      userId: this.props.auth.user.id,
-    };
+    const formData = new FormData();
 
-    if (this.props.auth.isAuthenticated) {
-      this.props.addMovie({
-        title: newMovie.title,
-        url: newMovie.url,
-        userId: this.props.auth.user.id,
-      });
-    }
+    formData.append("file", this.state.file);
+    formData.append("title", this.state.title);
+    formData.append("userId", this.props.auth.user.id);
 
-    const roomId = uuidv4();
-    this.props.history.push(`/room/${roomId}`);
+    this.props.addMovie(formData, this.props.auth.user.id);
   };
 
   handleInputChange = (e) => {
-    this.setState({ [e.target.name]: e.target.value });
+    if (e.target.files) {
+      this.setState({ file: e.target.files[0] });
+    } else {
+      this.setState({ [e.target.name]: e.target.value });
+    }
   };
 
   render() {
@@ -44,7 +38,7 @@ class CreateRoom extends Component {
 
     return (
       <div className="create_room_box">
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={this.handleSubmit} encType="multiplart/form-data">
           <div className="form-header">
             <h3>Create room</h3>
           </div>
@@ -59,8 +53,8 @@ class CreateRoom extends Component {
             {errors.title ? <p className="error">{errors.title}</p> : null}
             <label>Url</label>
             <input
-              type="text"
-              name="url"
+              type="file"
+              name="file"
               value={this.state.url}
               onChange={this.handleInputChange}
             ></input>

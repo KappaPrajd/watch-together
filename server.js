@@ -1,6 +1,7 @@
 const http = require("http");
 const express = require("express");
 const mongoose = require("mongoose");
+const cors = require("cors");
 const bodyParser = require("body-parser");
 const passport = require("passport");
 const socketio = require("socket.io");
@@ -35,6 +36,8 @@ app.use(
 );
 
 app.use(bodyParser.json());
+app.use(cors());
+app.use(express.static("uploads"));
 
 mongoose
   .connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -75,6 +78,10 @@ io.on("connection", (socket) => {
 
       socket.emit("fetchedURL", movie);
     });
+
+    socket.on("playPause", (bool) => {
+      socket.broadcast.to(user.room).emit("changePlayPause", bool);
+    });
   });
 
   socket.on("disconnect", () => {
@@ -84,8 +91,6 @@ io.on("connection", (socket) => {
       room: user.room,
       users: getRoomUsers(user.room),
     });
-
-    const userList = getRoomUsers(user.room);
   });
 });
 
