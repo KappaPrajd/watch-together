@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { connect } from "react-redux";
 import "./css/Player.css";
+import ReactLoading from "react-loading";
 
 const Player = ({ handlePlayPause, isPlaying, url }) => {
   const playerRef = useRef();

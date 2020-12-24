@@ -1,4 +1,8 @@
 .chat {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
   grid-row: 2 / 8;
   grid-column: 8 / 11;
   width: 70%;
@@ -6,4 +10,15 @@
   background-color: white;
   border-radius: 15px;
   box-shadow: 0 4px 20px 0 rgba(0, 58, 97, 0.15);
+}
+.user {
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  height: 10vh;
+  width: 90%;
+}
+.user > hr {
+  width: 100%;
+  border: 1px solid rgb(231, 231, 231);
 }
