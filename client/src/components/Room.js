@@ -16,6 +16,7 @@ class Room extends Component {
       globalURL: "",
       globalTitle: "",
       isPlaying: false,
+      newTimeStamp: 0,
     };
 
     this.url = window.location.href.split("/");
@@ -42,6 +43,10 @@ class Room extends Component {
 
     this.socket.on("changePlayPause", (bool) => {
       this.setState({ isPlaying: bool });
+    });
+
+    this.socket.on("updateTimeStamp", (timeStamp) => {
+      this.setState({ newTimeStamp: timeStamp });
     });
   }
 
@@ -75,6 +80,10 @@ class Room extends Component {
     this.socket.emit("playPause", bool);
   };
 
+  handleTimeUpdate = (timeStamp) => {
+    this.socket.emit("timeUpdate", timeStamp);
+  };
+
   render() {
     return (
       <React.Fragment>
@@ -88,6 +97,8 @@ class Room extends Component {
             url={this.state.globalURL}
             handlePlayPause={this.handlePlayPause}
             isPlaying={this.state.isPlaying}
+            handleTimeUpdate={this.handleTimeUpdate}
+            newTimeStamp={this.state.newTimeStamp}
           />
           <Chat />
         </div>

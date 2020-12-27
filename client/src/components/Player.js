@@ -1,8 +1,16 @@
-import React, { useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { connect } from "react-redux";
 import "./css/Player.css";
 
-const Player = ({ handlePlayPause, isPlaying, url }) => {
+const Player = ({
+  handlePlayPause,
+  handleTimeUpdate,
+  isPlaying,
+  url,
+  newTimeStamp,
+}) => {
+  const [timeStamp, setTimeStamp] = useState(0);
+
   const playerRef = useRef();
 
   useEffect(() => {
@@ -18,10 +26,6 @@ const Player = ({ handlePlayPause, isPlaying, url }) => {
       isPlaying ? playerRef.current.play() : playerRef.current.pause();
     }
   }, [isPlaying]);
-
-  const playPause = (action) => {
-    handlePlayPause(action === "play");
-  };
 
   const handleFullScreen = () => {
     if (playerRef.current) {
@@ -41,15 +45,36 @@ const Player = ({ handlePlayPause, isPlaying, url }) => {
     }
   };
 
+  const playPause = (action) => {
+    handlePlayPause(action === "play");
+  };
+
+  const timeUpdate = (time) => {
+    // distinct the normal flow of the video from user manually changing the time stamp, emit socket event if necessary
+    if (time - timeStamp > 3 || timeStamp - time > 3) {
+      handleTimeUpdate(time);
+    }
+
+    setTimeStamp(time);
+  };
+
+  useEffect(() => {
+    if (playerRef.current && newTimeStamp !== 0) {
+      playerRef.current.currentTime = newTimeStamp;
+    }
+  }, [newTimeStamp]);
+
   const renderVideo = () => {
     return url ? (
       <React.Fragment>
         <video
           className="player"
           muted
+          controls
           ref={playerRef}
           onPause={() => playPause("pause")}
           onPlay={() => playPause("play")}
+          onTimeUpdate={() => timeUpdate(playerRef.current.currentTime)}
         >
           <source src={url} type="video/mp4" />
         </video>
@@ -62,7 +87,15 @@ const Player = ({ handlePlayPause, isPlaying, url }) => {
       {renderVideo()}
       <div className="movie-controls">
         <button>-5s</button>
-        <button>start/stop</button>
+        <button
+          onClick={() =>
+            playerRef.current.paused
+              ? playerRef.current.play()
+              : playerRef.current.pause()
+          }
+        >
+          start/stop
+        </button>
         <button onClick={handleFullScreen}>Full screen</button>
       </div>
     </React.Fragment>

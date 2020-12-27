@@ -82,6 +82,10 @@ io.on("connection", (socket) => {
     socket.on("playPause", (bool) => {
       socket.broadcast.to(user.room).emit("changePlayPause", bool);
     });
+
+    socket.on("timeUpdate", (timeStamp) => {
+      socket.broadcast.to(user.room).emit("updateTimeStamp", timeStamp);
+    });
   });
 
   socket.on("disconnect", () => {
