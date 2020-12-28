@@ -58,7 +58,13 @@ const Navbar = ({ isAuthenticated }) => {
             ></i>
           </li>
           <li>
-            <i className="fab fa-github"></i>
+            <a
+              href="https://github.com/KappaPrajd/watch-together"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <i className="fab fa-github"></i>
+            </a>
           </li>
         </ul>
       );
@@ -68,8 +74,18 @@ const Navbar = ({ isAuthenticated }) => {
           <Link to="/about">
             <li>About</li>
           </Link>
-          <li>Sign In</li>
-          <li>Github</li>
+          <Link to="/auth">
+            <li>Sign In</li>
+          </Link>
+          <a
+            href="https://github.com/KappaPrajd/watch-together"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <li>
+              <i className="fab fa-github"></i>
+            </li>
+          </a>
         </ul>
       );
     }

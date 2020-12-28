@@ -13,6 +13,7 @@ class Room extends Component {
     super();
 
     this.state = {
+      roomUsers: [],
       globalURL: "",
       globalTitle: "",
       isPlaying: false,
@@ -100,7 +101,7 @@ class Room extends Component {
             handleTimeUpdate={this.handleTimeUpdate}
             newTimeStamp={this.state.newTimeStamp}
           />
-          <Chat />
+          <Chat users={this.state.roomUsers} />
         </div>
       </React.Fragment>
     );
