@@ -2,9 +2,6 @@ const express = require("express");
 const router = express.Router();
 const multer = require("multer");
 
-//validation
-const validateMovieInput = require("../../validation/movie");
-
 //Movie model
 const Movie = require("../../models/Movie");
 
@@ -24,15 +21,6 @@ router.post("/add", (req, res) => {
   const upload = multer({ storage: storage }).single("file");
 
   upload(req, res, (err) => {
-    const { errors, isValid } = validateMovieInput(req.body);
-    if (!isValid) {
-      return res.status(400).json(errors);
-    } else if (!req.body.userId) {
-      return res
-        .status(400)
-        .json({ auth: "You must be authenticated to add movie" });
-    }
-
     if (err instanceof multer.MulterError) {
       return res.status(500).json(err);
     } else if (err) {
