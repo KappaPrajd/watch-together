@@ -82,24 +82,7 @@ const Player = ({
     ) : null;
   };
 
-  return (
-    <React.Fragment>
-      {renderVideo()}
-      <div className="movie-controls">
-        <button>-5s</button>
-        <button
-          onClick={() =>
-            playerRef.current.paused
-              ? playerRef.current.play()
-              : playerRef.current.pause()
-          }
-        >
-          start/stop
-        </button>
-        <button onClick={handleFullScreen}>Full screen</button>
-      </div>
-    </React.Fragment>
-  );
+  return <React.Fragment>{renderVideo()}</React.Fragment>;
 };
 
 const mapStateToProps = (state) => {

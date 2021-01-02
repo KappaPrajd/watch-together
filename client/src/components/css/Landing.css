@@ -19,3 +19,29 @@
   background-image: url("https://res.cloudinary.com/dn5jmkxbb/image/upload/v1607369604/wave_bg_cynjl1.png");
   background-size: cover;
 }
+@media only screen and (max-width: 600px) {
+  .add-movie {
+    grid-column-start: 1;
+    grid-column-end: 13;
+    grid-row-start: 2;
+    grid-row-end: 13;
+  }
+
+  .library {
+    background-color: rgb(0, 0, 0, 0);
+    grid-column: 1 / 13;
+    grid-row: 10 /13;
+    z-index: 1;
+  }
+  .movie-item {
+    background-color: #00000060;
+  }
+  .fa-play-circle {
+    display: none;
+  }
+  .search-movie {
+    grid-column-start: 2;
+    grid-column-end: 3;
+    width: 10vw;
+  }
+}

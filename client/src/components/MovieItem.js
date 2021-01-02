@@ -10,7 +10,7 @@ const MovieItem = (props) => {
       props.changeMovie(props.movie.url, props.movie.title);
       props.history.push(`/room/${uuidv4()}`);
     } else {
-      props.handleMovieChange(props.movie.url, props.movie.title)
+      props.handleMovieChange(props.movie.url, props.movie.title);
     }
   };
 
@@ -20,6 +20,7 @@ const MovieItem = (props) => {
         {props.movie.title}
       </div>
       <div className="movie-url">{props.movie.url}</div>
+      <i class="fas fa-backspace"></i>
     </div>
   );
 };

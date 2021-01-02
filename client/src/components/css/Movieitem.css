@@ -13,11 +13,17 @@
 
   transition: height 0.4s ease-in-out, background-color 0.5s ease-in-out;
 }
+.movie-item > i {
+  display: none;
+}
 .movie-item:hover {
   height: 10.5vh;
   background-color: #4169e1;
   box-shadow: 0 4px 20px 0 rgba(0, 58, 97, 0.24);
   cursor: pointer;
+}
+.movie-item:hover i {
+  display: inline;
 }
 .movie-item:hover .movie-title {
   grid-row: 1/1;

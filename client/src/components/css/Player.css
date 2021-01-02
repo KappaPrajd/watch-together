@@ -11,7 +11,7 @@
   border-radius: 15px;
   box-shadow: 0 4px 20px 0 rgba(0, 58, 97, 0.15);
 }
-.movie-holder {
+/* .movie-holder {
   display: grid;
   justify-items: center;
   align-items: center;
@@ -27,9 +27,9 @@
   align-self: end;
   width: 49vw;
   height: 100%;
-}
+} */
 
-.movie-controls > * {
+/* .movie-controls > * {
   width: 10vh;
   border: none;
   background-color: white;
@@ -45,5 +45,6 @@
   border-right: none;
 }
 button {
-  outline: none;
+  outline: none; 
 }
+*/
