@@ -4,10 +4,22 @@ import { Link } from "react-router-dom";
 import "./css/Navbar.css";
 import ProfileInfo from "./ProfileInfo";
 
-const Navbar = ({ isAuthenticated }) => {
+const Navbar = ({ isAuthenticated, userMovies }) => {
   const [showProfileInfo, setShowProfileInfo] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filteredMovies, setfilteredMovies] = useState([]);
   const profileIconRef = useRef();
   const profileInfoRef = useRef();
+
+  useEffect(() => {
+    if (userMovies) {
+      const movies = userMovies.filter((movie) =>
+        movie.title.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+
+      setfilteredMovies(movies);
+    }
+  }, [userMovies, searchTerm]);
 
   const useOutsideAlerter = (ref) => {
     useEffect(() => {
@@ -91,6 +103,25 @@ const Navbar = ({ isAuthenticated }) => {
     }
   };
 
+  const handleInputChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const renderFilteredMovies = () => {
+    if (filteredMovies.length === 0 || !searchTerm) {
+      return;
+    }
+
+    return filteredMovies.map((movie, index) => {
+      return (
+        <div key={index}>
+          <p>{movie.title}</p>
+          <p>{movie.url}</p>
+        </div>
+      );
+    });
+  };
+
   useOutsideAlerter(profileIconRef);
 
   return (
@@ -99,7 +130,13 @@ const Navbar = ({ isAuthenticated }) => {
         <div className="icon"></div>
         <i className="fas fa-play-circle"></i>
         <div className="search-movie">
-          <input type="text" placeholder="Search your movies..."></input>
+          <input
+            type="text"
+            placeholder="Search your movies..."
+            value={searchTerm}
+            onChange={(e) => handleInputChange(e)}
+          ></input>
+          {renderFilteredMovies()}
         </div>
         <div className="nav-items">{renderItems()}</div>
       </div>
@@ -111,6 +148,7 @@ const Navbar = ({ isAuthenticated }) => {
 const mapStateToProps = (state) => {
   return {
     isAuthenticated: state.auth.isAuthenticated,
+    userMovies: state.movies.userMovies,
   };
 };
 
