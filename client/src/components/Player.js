@@ -75,6 +75,7 @@ const Player = ({
           onPause={() => playPause("pause")}
           onPlay={() => playPause("play")}
           onTimeUpdate={() => timeUpdate(playerRef.current.currentTime)}
+          key={url}
         >
           <source src={url} type="video/mp4" />
         </video>

@@ -69,8 +69,7 @@ io.on("connection", (socket) => {
 
     socket.on("movieChange", (data) => {
       const movie = changeRoomUrl(user.room, data.url, data.title);
-
-      io.to(user.room).emit("changeURL", movie);
+      socket.emit("changeURL", movie);
     });
 
     socket.on("fetchURL", () => {

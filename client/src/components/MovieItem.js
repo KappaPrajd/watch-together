@@ -20,7 +20,7 @@ const MovieItem = (props) => {
         {props.movie.title}
       </div>
       <div className="movie-url">{props.movie.url}</div>
-      <i class="fas fa-backspace"></i>
+      <i className="fas fa-backspace"></i>
     </div>
   );
 };
