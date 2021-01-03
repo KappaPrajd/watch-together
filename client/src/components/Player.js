@@ -64,6 +64,9 @@ const Player = ({
     }
   }, [newTimeStamp]);
 
+  //video tag needs the key argument in order to update itself on props change
+  //https://stackoverflow.com/questions/41303012/updating-source-url-on-html5-video-with-react
+
   const renderVideo = () => {
     return url ? (
       <React.Fragment>

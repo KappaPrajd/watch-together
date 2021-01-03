@@ -64,6 +64,16 @@ class Room extends Component {
     this.props.setUserState(true);
   }
 
+  componentDidUpdate() {
+    if (
+      this.props.url &&
+      this.props.title &&
+      this.props.url !== this.state.globalURL
+    ) {
+      this.handleMovieChange(this.props.url, this.props.title);
+    }
+  }
+
   componentWillUnmount() {
     this.props.setUserState(false);
   }
@@ -89,10 +99,7 @@ class Room extends Component {
     return (
       <React.Fragment>
         <Navbar />
-        <Library
-          changeMovie={this.props.changeMovie}
-          handleMovieChange={this.handleMovieChange}
-        />
+        <Library changeMovie={this.props.changeMovie} />
         <div className="add-movie">
           <Player
             url={this.state.globalURL}

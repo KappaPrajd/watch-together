@@ -55,8 +55,6 @@ app.use("/api/users", users);
 app.use("/api/movies", movies);
 
 io.on("connection", (socket) => {
-  console.log("user connected");
-
   socket.on("joinRoom", ({ username, room }) => {
     const user = userJoin(socket.id, username, room);
 
@@ -69,7 +67,7 @@ io.on("connection", (socket) => {
 
     socket.on("movieChange", (data) => {
       const movie = changeRoomUrl(user.room, data.url, data.title);
-      socket.emit("changeURL", movie);
+      io.sockets.emit("changeURL", movie);
     });
 
     socket.on("fetchURL", () => {
