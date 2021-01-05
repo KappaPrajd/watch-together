@@ -67,13 +67,13 @@ io.on("connection", (socket) => {
 
     socket.on("movieChange", (data) => {
       const movie = changeRoomUrl(user.room, data.url, data.title);
-      io.sockets.emit("changeURL", movie);
+      io.sockets.to(user.room).emit("changeURL", movie);
     });
 
     socket.on("fetchURL", () => {
       const movie = getRoomUrl(user.room);
 
-      socket.emit("fetchedURL", movie);
+      io.sockets.to(user.room).emit("fetchedURL", movie);
     });
 
     socket.on("playPause", (bool) => {

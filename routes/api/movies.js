@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const fs = require("fs");
 const multer = require("multer");
 
 //Movie model
@@ -50,11 +51,29 @@ router.get("/user", (req, res) => {
     .sort({ date: -1 })
     .then((movies) => {
       movies = movies.map((movie) => {
-        return { title: movie.title, url: movie.url };
+        return { title: movie.title, url: movie.url, id: movie._id };
       });
 
       res.json(movies);
-    });
+    })
+    .catch((err) => res.status(500).json({ error: err }));
+});
+
+//@route POST api/movies/delete
+//@desc delete movie item
+//@access Public
+router.post("/delete", (req, res) => {
+  Movie.findOneAndDelete({ _id: req.body.id })
+    .then(() => {
+      try {
+        fs.unlink(req.body.path, () => {});
+
+        return res.status(200).json({ item: "Item deleted successfully" });
+      } catch (err) {
+        return res.status(500).json(err);
+      }
+    })
+    .catch((err) => res.status(500).json(err));
 });
 
 module.exports = router;

@@ -94,3 +94,12 @@ export const setUserState = (bool) => {
     payload: bool,
   };
 };
+
+export const deleteMovie = (id, path, userId) => (dispatch) => {
+  axios
+    .post("http://localhost:5000/api/movies/delete", { id, path })
+    .then((res) => {
+      dispatch(fetchUserMovies(userId));
+    })
+    .catch((err) => console.log(err));
+};
