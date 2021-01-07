@@ -13,10 +13,13 @@
   grid-column-end: 2;
 }
 
+.icon a {
+  align-self: center;
+}
+
 .fa-play-circle {
   color: #09f;
   font-size: 3.5rem;
-  align-self: center;
 }
 
 .search-movie {

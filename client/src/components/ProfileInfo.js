@@ -12,8 +12,8 @@ const ProfileInfo = (props) => {
     <React.Fragment>
       <form>
         <i className="fas fa-user-circle"></i>
-        <div className="profile-name">J00zef11</div>
-        <div className="profile-mail">j0zek1312@gmail.pl</div>
+        <div className="profile-name">{props.auth.user.name}</div>
+        <div className="profile-mail">{props.auth.user.email}</div>
         <hr></hr>
         <button className="signout-button" onClick={handleClick}>
           Log out
@@ -26,7 +26,6 @@ const ProfileInfo = (props) => {
 const mapStateToProps = (state) => {
   return {
     auth: state.auth,
-    movies: state.movies,
   };
 };
 

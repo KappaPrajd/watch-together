@@ -8,6 +8,7 @@
 
 # production
 /client/build
+/client/debug.log
 /uploads
 
 # misc

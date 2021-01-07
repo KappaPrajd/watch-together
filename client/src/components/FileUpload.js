@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { addMovie } from "../actions/";
-import "./css/CreateRoom.css";
+import { addMovie } from "../actions";
+import "./css/FileUpload.css";
 
-class CreateRoom extends Component {
+class FileUpload extends Component {
   constructor() {
     super();
 
@@ -40,7 +40,7 @@ class CreateRoom extends Component {
       <div className="create_room_box">
         <form onSubmit={this.handleSubmit} encType="multiplart/form-data">
           <div className="form-header">
-            <h3>Create room</h3>
+            <h3>Add movie</h3>
           </div>
           <div className="form-body">
             <label>Title</label>
@@ -51,7 +51,7 @@ class CreateRoom extends Component {
               onChange={this.handleInputChange}
             ></input>
             {errors.title ? <p className="error">{errors.title}</p> : null}
-            <label>Url</label>
+            <label>File</label>
             <input
               type="file"
               name="file"
@@ -59,7 +59,7 @@ class CreateRoom extends Component {
               onChange={this.handleInputChange}
             ></input>
             {errors.url ? <p className="error">{errors.url}</p> : null}
-            <button>Submit movie</button>
+            <button>Submit</button>
           </div>
         </form>
       </div>
@@ -74,4 +74,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { addMovie })(withRouter(CreateRoom));
+export default connect(mapStateToProps, { addMovie })(withRouter(FileUpload));

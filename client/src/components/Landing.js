@@ -1,7 +1,7 @@
 import React from "react";
 import Navbar from "./Navbar";
 import Library from "./Library";
-import CreateRoom from "./CreateRoom";
+import FileUpload from "./FileUpload";
 import "./css/Landing.css";
 
 const Landing = (props) => {
@@ -10,7 +10,7 @@ const Landing = (props) => {
       <Navbar />
       <Library changeMovie={props.changeMovie} />
       <div className="add-movie">
-        <CreateRoom />
+        <FileUpload />
       </div>
     </React.Fragment>
   );

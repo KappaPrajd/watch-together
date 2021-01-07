@@ -127,8 +127,11 @@ const Navbar = ({ isAuthenticated, userMovies }) => {
   return (
     <React.Fragment>
       <div className="nav">
-        <div className="icon"></div>
-        <i className="fas fa-play-circle"></i>
+        <div className="icon">
+          <Link to="/">
+            <i className="fas fa-play-circle"></i>
+          </Link>
+        </div>
         <div className="search-movie">
           <input
             type="text"
