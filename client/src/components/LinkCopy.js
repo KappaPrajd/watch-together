@@ -1,5 +1,5 @@
 import React from "react";
-import "./css/Copylink.css";
+import "./css/LinkCopy.css";
 
 const Copylink = () => {
   return (
