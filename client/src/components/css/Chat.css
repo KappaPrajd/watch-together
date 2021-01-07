@@ -4,9 +4,7 @@
   justify-content: flex-start;
   align-items: center;
   grid-row: 2 / 8;
-  grid-column: 8 / 11;
-  width: 70%;
-  height: 100%;
+  grid-column: 9 / 11;
   background-color: white;
   border-radius: 15px;
   box-shadow: 0 4px 20px 0 rgba(0, 58, 97, 0.15);

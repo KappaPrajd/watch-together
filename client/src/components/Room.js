@@ -7,6 +7,7 @@ import Navbar from "./Navbar";
 import Library from "./Library";
 import Player from "./Player";
 import Chat from "./Chat";
+import Copylink from "./Copylink";
 
 class Room extends Component {
   constructor() {
@@ -109,6 +110,7 @@ class Room extends Component {
             newTimeStamp={this.state.newTimeStamp}
           />
           <Chat users={this.state.roomUsers} />
+          <Copylink />
         </div>
       </React.Fragment>
     );
