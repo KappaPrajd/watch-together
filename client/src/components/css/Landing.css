@@ -69,24 +69,25 @@
   .library {
     background-color: rgb(0, 0, 0, 0);
     grid-column: 1 / 24;
-    grid-row: 18 /25;
+    grid-row: 20 / 25;
     z-index: 1;
   }
   .movie-item {
     height: 15vh;
   }
-  .chat {
-    grid-row: 9 / 10;
-    grid-column: 9 / 12;
-  }
+
   .player {
     grid-row: 2 / 6 !important;
     grid-column: 1 / 13 !important;
   }
   .chat {
-    justify-self: center;
     grid-row: 6 / 9 !important;
-    grid-column: 1 / 13 !important;
+    grid-column: 3 / 11 !important;
     margin-top: 10px;
+  }
+  .copylink {
+    grid-row: 9 / 10 !important;
+    grid-column: 3 / 11 !important;
+    margin: 5px;
   }
 }
