@@ -56,9 +56,16 @@ export const logoutUser = () => (dispatch) => {
   dispatch(setCurrentUser({}));
 };
 
-export const addMovie = (formData, userId) => (dispatch) => {
+export const addMovie = (formData, userId, handleUploadProgress) => (
+  dispatch
+) => {
+  const config = {
+    onUploadProgress: (progressEvent) =>
+      handleUploadProgress(progressEvent.loaded, progressEvent.total),
+  };
+
   axios
-    .post("http://localhost:5000/api/movies/add", formData)
+    .post("http://localhost:5000/api/movies/add", formData, config)
     .then(() => {
       dispatch(fetchUserMovies(userId));
     })

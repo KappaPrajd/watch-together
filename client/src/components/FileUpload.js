@@ -11,8 +11,20 @@ class FileUpload extends Component {
     this.state = {
       title: "",
       file: null,
+      uploaded: 0,
+      total: 0,
+      progress: 0,
     };
   }
+
+  handleUploadProgress = (uploaded, total) => {
+    this.setState({ uploaded, total });
+
+    this.setState({
+      progress:
+        Math.round((this.state.uploaded / this.state.total) * 100) / 100,
+    });
+  };
 
   handleSubmit = (e) => {
     e.preventDefault();
@@ -22,7 +34,11 @@ class FileUpload extends Component {
     formData.append("title", this.state.title);
     formData.append("userId", this.props.auth.user.id);
 
-    this.props.addMovie(formData, this.props.auth.user.id);
+    this.props.addMovie(
+      formData,
+      this.props.auth.user.id,
+      this.handleUploadProgress
+    );
   };
 
   handleInputChange = (e) => {
@@ -35,6 +51,20 @@ class FileUpload extends Component {
 
   render() {
     const errors = this.props.errors;
+
+    if (this.state.progress !== 0 && this.state.progress !== 1) {
+      const divStyle = {
+        width: `${this.state.progress * 100}%`,
+      };
+
+      return (
+        <div className="create_room_box">
+          <div style={divStyle}>
+            Progress: {`${Math.round(this.state.progress * 100)}%`}
+          </div>
+        </div>
+      );
+    }
 
     return (
       <div className="create_room_box">
