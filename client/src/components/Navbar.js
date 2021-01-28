@@ -60,7 +60,7 @@ const Navbar = ({ isAuthenticated, userMovies }) => {
       return (
         <ul>
           <Link to="/about">
-            <li>About</li>
+            <li className="about-link">About</li>
           </Link>
           <li>
             <i
@@ -112,14 +112,15 @@ const Navbar = ({ isAuthenticated, userMovies }) => {
       return;
     }
 
-    return filteredMovies.map((movie, index) => {
+    const searchItems = filteredMovies.map((movie, index) => {
       return (
-        <div key={index}>
+        <div className="search-item" key={index}>
           <p>{movie.title}</p>
-          <p>{movie.url}</p>
         </div>
       );
     });
+
+    return <div className="search-results">{searchItems}</div>;
   };
 
   useOutsideAlerter(profileIconRef);
@@ -139,10 +140,10 @@ const Navbar = ({ isAuthenticated, userMovies }) => {
             value={searchTerm}
             onChange={(e) => handleInputChange(e)}
           ></input>
-          {renderFilteredMovies()}
         </div>
         <div className="nav-items">{renderItems()}</div>
       </div>
+      {renderFilteredMovies()}
       {renderProfileInfo()}
     </React.Fragment>
   );

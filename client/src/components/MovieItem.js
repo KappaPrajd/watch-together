@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { deleteMovie } from "../actions";
-import "./css/Movieitem.css";
+import "./css/MovieItem.css";
 
 const MovieItem = (props) => {
   const handleClick = () => {

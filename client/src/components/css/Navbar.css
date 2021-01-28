@@ -1,5 +1,6 @@
 .nav {
   grid-column-start: 1;
+  background-color: white;
   grid-column-end: 13;
   display: grid;
   grid-template-columns: repeat(12, 1fr);
@@ -89,4 +90,52 @@ ul a {
 .fa-user-circle {
   color: #003a61;
   font-size: 2rem;
+}
+
+.search-results {
+  z-index: 3;
+  grid-column: 6 / 8;
+  grid-row: 2 / 5;
+  height: fit-content;
+  background-color: white;
+}
+
+.search-item {
+  background-color: white;
+  border: 1px solid #6c63ff;
+  border-top: none;
+  padding: 10px;
+  text-align: center;
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+@media only screen and (max-width: 750px) {
+  .nav {
+    grid-row: 1 / 3;
+    grid-column: 1 / 25;
+    z-index: 1000;
+  }
+  .fa-play-circle {
+    display: none;
+  }
+
+  .fa-github {
+    display: none;
+  }
+
+  .about-link {
+    display: none;
+  }
+  .search-movie {
+    grid-column-start: 4;
+    grid-column-end: 10;
+  }
+  .search-movie > input {
+    width: 100%;
+  }
+  .nav-items {
+    grid-column-start: 11;
+    grid-column-end: 13;
+  }
 }

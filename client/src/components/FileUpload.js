@@ -52,22 +52,26 @@ class FileUpload extends Component {
   render() {
     const errors = this.props.errors;
 
-    if (this.state.progress !== 0 && this.state.progress !== 1) {
+    if (this.state.progress > 0 && this.state.progress !== 1) {
       const divStyle = {
         width: `${this.state.progress * 100}%`,
       };
 
       return (
-        <div className="create_room_box">
-          <div style={divStyle}>
-            Progress: {`${Math.round(this.state.progress * 100)}%`}
+        <div className="progress-box">
+          <p className="progress-header">Progress:</p>
+          <div className="progress-container">
+            <p className="progress">{`${Math.round(
+              this.state.progress * 100
+            )} %`}</p>
+            <div className="progress-bar" style={divStyle}></div>
           </div>
         </div>
       );
     }
 
     return (
-      <div className="create_room_box">
+      <div className="create-room-box">
         <form onSubmit={this.handleSubmit} encType="multiplart/form-data">
           <div className="form-header">
             <h3>Add movie</h3>

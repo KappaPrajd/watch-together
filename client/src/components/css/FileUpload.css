@@ -1,22 +1,108 @@
-.create_room_box {
+.create-room-box {
   display: grid;
-  grid-row: 4 / 8;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+  grid-row: 4 / 9;
   grid-column: 5 / 9;
   box-shadow: 0 4px 20px 0 rgba(0, 58, 97, 0.15);
   border-radius: 35px;
-  padding: 30px 70px;
   background-color: white;
   justify-content: center;
   align-content: center;
 }
-.create_room_box > form {
+.create-room-box > form {
+  grid-column: 4 / 10;
+  grid-row: 1 / 12;
   display: grid;
   justify-content: center;
   align-content: center;
+  width: fit-content;
 }
 .form-body {
   display: grid;
 }
+
+.form-body > button {
+  margin-top: 30px;
+}
+
 .form-header {
   justify-self: center;
+}
+
+.progress {
+  z-index: 3;
+  font-weight: bold;
+  margin: 0;
+}
+
+.progress-box {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+  grid-row: 5 / 8;
+  grid-column: 5 / 9;
+  box-shadow: 0 4px 20px 0 rgba(0, 58, 97, 0.15);
+  border-radius: 35px;
+  background-color: white;
+  justify-content: center;
+  align-content: center;
+}
+
+.progress-header {
+  grid-column: 2 / 12;
+  grid-row: 3 / 4;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+
+.progress-container {
+  display: grid;
+  position: relative;
+  padding: 20px;
+  justify-content: center;
+  align-content: center;
+  grid-column: 2 / 12;
+  grid-row: 6 / 7;
+  border: 1px solid #003a61;
+  border-radius: 10px;
+}
+
+.progress-bar {
+  position: absolute;
+  display: grid;
+  justify-content: center;
+  align-content: center;
+  height: 100%;
+  width: 100%;
+  border-radius: 5px;
+  background-color: #6c63ff;
+}
+
+@media only screen and (max-width: 1300px) {
+  .create-room-box {
+    grid-row: 4 / 9;
+    grid-column: 4 / 10;
+    padding: 20px;
+  }
+
+  .create-room-box > form {
+    grid-column: 3 / 11;
+    grid-row: 1 / 12;
+    width: fit-content;
+  }
+}
+
+@media only screen and (max-width: 750px) {
+  .create-room-box {
+    grid-row: 4 / 9;
+    grid-column: 3 / 11;
+    padding: 5px;
+  }
+
+  .create-room-box > form {
+    grid-column: 3 / 11;
+    grid-row: 1 / 12;
+  }
 }

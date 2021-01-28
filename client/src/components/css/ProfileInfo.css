@@ -9,6 +9,7 @@
   border-radius: 5%;
   margin: 5px;
   z-index: 99;
+  width: fit-content;
 }
 .profile-info-box form {
   display: grid;
@@ -48,4 +49,19 @@
 }
 .signout-button:hover {
   background-color: darkgray;
+}
+
+@media only screen and (max-width: 750px) {
+  .profile-info-box {
+    grid-column: 18 / 23;
+    grid-row: 3 / 9;
+  }
+
+  .profile-info-box form i {
+    font-size: 3rem;
+  }
+
+  .profile-mail {
+    display: none;
+  }
 }

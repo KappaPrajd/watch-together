@@ -1,50 +1,13 @@
 .player {
-  display: grid;
-  grid-row: 2 / 9;
-  grid-column: 2 / 8;
-  grid-template-rows: 60vh 4.2vh;
-  width: 100%;
-  height: 100%;
-  justify-items: center;
-  align-items: center;
+  grid-row: 2 / 8;
+  grid-column: 2 / 9;
+  width: 110%;
+  height: 80%;
   background-color: black;
   border-radius: 15px;
   box-shadow: 0 4px 20px 0 rgba(0, 58, 97, 0.15);
 }
-/* .movie-holder {
-  display: grid;
-  justify-items: center;
-  align-items: center;
-  grid-row: 1 / 2;
-  align-self: end;
-  width: 97.5%;
-  height: 98%;
-  background-color: black;
-}
-.movie-controls {
-  display: flex;
-  grid-row: 2 / 3;
-  align-self: end;
-  width: 49vw;
-  height: 100%;
-} */
 
-/* .movie-controls > * {
-  width: 10vh;
-  border: none;
-  background-color: white;
-  color: #0099ff;
+.player:focus {
+  outline: none;
 }
-.movie-controls > :first-child {
-  border-radius: 0px 0px 0px 20px;
-}
-.movie-controls button {
-  border-right: 1px solid #e1e1e1;
-}
-.movie-controls > :last-child {
-  border-right: none;
-}
-button {
-  outline: none; 
-}
-*/

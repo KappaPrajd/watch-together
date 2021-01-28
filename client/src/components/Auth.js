@@ -27,7 +27,7 @@ const Auth = () => {
         <img src="/img/wave.png" alt="wave" className="wave"></img>
         <div className="left-panel">
           <img
-            src="img/undraw_horror_movie_3988.png"
+            src="\img\undraw_horror_movie_3988.png"
             alt="undraw.co movie icon"
           ></img>
         </div>

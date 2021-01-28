@@ -5,7 +5,6 @@
   grid-row: 2 /13;
   align-items: center;
   background-color: #005e9c;
-  /*border-right: 3px solid #003a61;*/
   overflow-y: scroll;
   overflow-x: hidden;
   box-sizing: content-box;
@@ -17,4 +16,10 @@
 }
 .library :first-child {
   margin: 4px 2px 2px 0px;
+}
+
+@media only screen and (max-width: 750px) {
+  .library {
+    display: none;
+  }
 }
